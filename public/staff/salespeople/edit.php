@@ -19,10 +19,10 @@ if(is_post_request()) {
   if(isset($_POST['phone'])) { $salesperson['phone'] = $_POST['phone']; }
   if(isset($_POST['email'])) { $salesperson['email'] = $_POST['email']; }
 
+  $result = update_salesperson($salesperson);  
 
-  $result = update_user($user);
   if($result === true) {
-    redirect_to('show.php?id=' . $user['id']);
+    redirect_to('show.php?id=' . $salesperson['id']);
   } else {
     $errors = $result;
   }

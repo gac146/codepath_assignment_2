@@ -222,6 +222,30 @@
 
   function validate_salesperson($salesperson, $errors=array()) {
     // TODO add validations
+    if (is_blank($salesperson['first_name'])) {
+      $errors[] = "First name cannot be blank.";
+    } elseif (!has_length($salesperson['first_name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "First name must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($salesperson['last_name'])) {
+      $errors[] = "Last name cannot be blank.";
+    } elseif (!has_length($salesperson['last_name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Last name must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($salesperson['phone'])) {
+      $errors[] = "Phone number cannot be blank.";
+    } elseif (!has_valid_phone_format($salesperson['phone'])) {
+      $errors[] = "Phone number must be a valid format.";
+    }
+
+    if (is_blank($salesperson['email'])) {
+      $errors[] = "Email cannot be blank.";
+    } elseif (!has_valid_email_format($salesperson['email'])) {
+      echo has_valid_email_format($salesperson['email']);
+      $errors[] = "Email must be a valid format.";
+    }
 
     return $errors;
   }
@@ -235,8 +259,19 @@
     if (!empty($errors)) {
       return $errors;
     }
+    
+    //updating phone number to correct format after checking for errors
+    $salesperson['phone'] = format_phone_number($salesperson['phone']);
 
-    $sql = ""; // TODO add SQL
+    $sql = "INSERT INTO salespeople ";
+    $sql .= "(first_name, last_name, phone, email) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $salesperson['first_name'] . "', ";
+    $sql .= "'" . $salesperson['last_name'] . "', ";
+    $sql .= "'" . $salesperson['phone'] . "', ";
+    $sql .= "'" . $salesperson['email'] . "'";
+    $sql .= ");";
+
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -256,11 +291,22 @@
     global $db;
 
     $errors = validate_salesperson($salesperson);
+
     if (!empty($errors)) {
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    //updating phone number to correct format after checking for errors
+    $salesperson['phone'] = format_phone_number($salesperson['phone']);
+
+    $sql = "UPDATE salespeople SET ";
+    $sql .= "first_name='" . $salesperson['first_name'] . "', ";
+    $sql .= "last_name='" . $salesperson['last_name'] . "', ";
+    $sql .= "phone='" . $salesperson['phone'] . "', ";
+    $sql .= "email='" . $salesperson['email'] . "' ";
+    $sql .= "WHERE id='" . $salesperson['id'] . "' ";
+    $sql .= "LIMIT 1;";
+
     // For update_salesperson statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {

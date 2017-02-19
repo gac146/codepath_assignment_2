@@ -36,4 +36,23 @@
     return $output;
   }
 
+  //formats phone number to be inserted into the database
+  //useful function to have all phopne numbers in the database 
+  // under the same format
+  function format_phone_number($value){
+
+    $phone = '';
+    if (preg_match('%^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$%', $value, $matches)){
+      $phone = $matches[1];
+      $phone .= '-';
+      $phone .= $matches[2];
+      $phone .= '-';
+      $phone .= $matches[3];
+    }
+
+    echo $phone;
+
+    return $phone;
+  }
+
 ?>
