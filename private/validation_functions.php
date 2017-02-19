@@ -32,9 +32,15 @@
   // function to valid phone number
   // must only contain 0-9, spaces, and ()-.
   // this function is helpful because it validates valid phone numbers 
-  function has_valid_phone_format($value){
+  function has_valid_phone_format($value) {
     
     return preg_match('%^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$%', $value);
+  }
+
+  // function to validate user and make suer that it only contains
+  // characters: A-Z, a-z, 0-9, and _
+  function has_valid_user_format($value) {
+    return preg_match('%^[a-zA-Z0-9_]+$%', $value);
   }
 
 ?>

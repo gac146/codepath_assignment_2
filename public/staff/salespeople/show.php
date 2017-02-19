@@ -8,7 +8,6 @@ $id = $_GET['id'];
 $salespeople_result = find_salesperson_by_id($id);
 // No loop, only one result
 $salesperson = db_fetch_assoc($salespeople_result);
- format_phone_number($salesperson['phone']);
 ?>
 
 <?php $page_title = 'Staff: Salesperson ' . $salesperson['first_name'] . " " . $salesperson['last_name']; ?>

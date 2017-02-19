@@ -360,8 +360,7 @@
       $errors[] = "First name cannot be blank.";
     } elseif (!has_length($user['first_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "First name must be between 2 and 255 characters.";
-    }
-
+    } 
     if (is_blank($user['last_name'])) {
       $errors[] = "Last name cannot be blank.";
     } elseif (!has_length($user['last_name'], array('min' => 2, 'max' => 255))) {
@@ -378,7 +377,10 @@
       $errors[] = "Username cannot be blank.";
     } elseif (!has_length($user['username'], array('max' => 255))) {
       $errors[] = "Username must be less than 255 characters.";
+    } else if(!has_valid_user_format($user['username'])) {
+      $errors[] = "Username must be of valid format";
     }
+
     return $errors;
   }
 
