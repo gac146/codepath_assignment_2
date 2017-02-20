@@ -36,9 +36,10 @@
     return $output;
   }
 
-  //formats phone number to be inserted into the database
-  //useful function to have all phopne numbers in the database 
-  // under the same format
+  // Custmo function
+  // formats phone number to be inserted into the database
+  // useful function to have all phopne numbers in the database 
+  // under the same format: ###-###-####
   function format_phone_number($value){
 
     $phone = '';

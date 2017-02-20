@@ -33,7 +33,7 @@ if(is_post_request()) {
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <div id="main-content">
-  <a href="index.php">Back to Salespeople List</a><br />
+  <a href="index.php">Cancel</a><br />
 
   <h1>Edit Salesperson: <?php echo $salesperson['first_name'] . " " . $salesperson['last_name']; ?></h1>
 

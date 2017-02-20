@@ -32,7 +32,7 @@ if(is_post_request()) {
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <div id="main-content">
-  <a href="index.php">Back to Users List</a><br />
+  <a href="index.php">Cancel</a><br />
 
   <h1>Edit User: <?php echo $user['first_name'] . " " . $user['last_name']; ?></h1>
 

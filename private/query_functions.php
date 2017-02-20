@@ -46,6 +46,21 @@
 
   function validate_state($state, $errors=array()) {
     // TODO add validations
+    if (is_blank($state['name'])) {
+      $errors[] = "Name of state cannot be blank.";
+    } elseif (!has_length($state['name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Name of state must be between 2 and 255 characters.";
+    } elseif(!has_valid_name($state['name'])) {
+      $errors[] = "State name must contain only characters: A-Z and/or a-z.";
+    }
+
+    if (is_blank($state['code'])) {
+      $errors[] = "State code cannot be blank.";
+    } elseif (!has_length($state['code'], array('min' => 2, 'max' => 2))) {
+      $errors[] = "State code must be extacly 2 characters.";
+    } elseif(!has_valid_code($state['code'])) {
+      $errors[] = "State code must be of valid format";
+    }
 
     return $errors;
   }
@@ -54,13 +69,21 @@
   // Either returns true or an array of errors
   function insert_state($state) {
     global $db;
+    $state['country_id'] = 1;
 
     $errors = validate_state($state);
     if (!empty($errors)) {
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "INSERT INTO states ";
+    $sql .= "(name, code, country_id) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $state['name'] . "', ";
+    $sql .= "'" . $state['code'] . "', ";
+    $sql .= "'" . $state['country_id'] . "'";
+    $sql .= ");";
+
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -84,7 +107,12 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "UPDATE states SET ";
+    $sql .= "name='" . $state['name'] . "', ";
+    $sql .= "code='" . $state['code'] . "', ";
+    $sql .= "country_id='" . $state['country_id'] . "' ";
+    $sql .= "LIMIT 1;";
+
     // For update_state statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -131,7 +159,23 @@
   }
 
   function validate_territory($territory, $errors=array()) {
+    
     // TODO add validations
+    if (is_blank($territory['name'])) {
+      $errors[] = "Name of territory cannot be blank.";
+    } elseif (!has_length($territory['name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Name of territory must be between 2 and 255 characters.";
+    } elseif(!has_valid_name($territory['name'])) {
+      $errors[] = "Territory name must contain only characters: A-Z and/or a-z.";
+    }
+
+    if (is_blank($territory['position'])) {
+      $errors[] = "Territory position cannot be blank.";
+    } elseif (!has_length($territory['position'], array('min' => 1, 'max' => 255))) {
+      $errors[] = "Territory position must be an number greater than 1.";
+    } elseif(!has_valid_position($territory['position'])) {
+      $errors[] = "Territory position must be contain only number: 0-9";
+    }
 
     return $errors;
   }
@@ -146,7 +190,14 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "INSERT INTO territories ";
+    $sql .= "(name, state_id, position) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $territory['name'] . "', ";
+    $sql .= "'" . $territory['state_id'] . "', ";
+    $sql .= "'" . $territory['position'] . "'";
+    $sql .= ");";
+
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -170,7 +221,12 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "UPDATE territories SET ";
+    $sql .= "name='" . $territory['name'] . "', ";
+    $sql .= "state_id='" . $territory['state_id'] . "', ";
+    $sql .= "position='" . $territory['position'] . "' ";
+    $sql .= "LIMIT 1;";
+
     // For update_territory statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -226,12 +282,16 @@
       $errors[] = "First name cannot be blank.";
     } elseif (!has_length($salesperson['first_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "First name must be between 2 and 255 characters.";
+    } elseif(!has_valid_name($salespeople['first_name'])) {
+      $errors[] = "First name must contain only characters: A-Z and/or a-z.";
     }
 
     if (is_blank($salesperson['last_name'])) {
       $errors[] = "Last name cannot be blank.";
     } elseif (!has_length($salesperson['last_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Last name must be between 2 and 255 characters.";
+    } elseif(!has_valid_name($salespeople['last_name'])) {
+      $errors[] = "Last name must contain only characters: A-Z and/or a-z.";
     }
 
     if (is_blank($salesperson['phone'])) {
@@ -260,7 +320,7 @@
       return $errors;
     }
     
-    //updating phone number to correct format after checking for errors
+    //updating phone number to correct format after checking for errors to enter in database
     $salesperson['phone'] = format_phone_number($salesperson['phone']);
 
     $sql = "INSERT INTO salespeople ";
@@ -360,11 +420,16 @@
       $errors[] = "First name cannot be blank.";
     } elseif (!has_length($user['first_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "First name must be between 2 and 255 characters.";
-    } 
+    } elseif(!has_valid_name($user['first_name'])) {
+      $errors[] = "First name must contain only characters: A-Z and/or a-z.";
+    }
+
     if (is_blank($user['last_name'])) {
       $errors[] = "Last name cannot be blank.";
     } elseif (!has_length($user['last_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Last name must be between 2 and 255 characters.";
+    } elseif(!has_valid_name($user['last_name'])) {
+      $errors[] = "Last name must contain only characters: A-Z and/or a-z.";
     }
 
     if (is_blank($user['email'])) {
@@ -377,7 +442,7 @@
       $errors[] = "Username cannot be blank.";
     } elseif (!has_length($user['username'], array('max' => 255))) {
       $errors[] = "Username must be less than 255 characters.";
-    } else if(!has_valid_user_format($user['username'])) {
+    } elseif(!has_valid_user_format($user['username'])) {
       $errors[] = "Username must be of valid format";
     }
 

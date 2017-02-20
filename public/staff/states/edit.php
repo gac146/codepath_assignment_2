@@ -29,7 +29,7 @@ if(is_post_request()) {
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <div id="main-content">
-  <a href="index.php">Back to States List</a><br />
+  <a href="index.php">Cancel</a><br />
 
   <h1>Edit State: <?php echo $state['name']; ?></h1>
 

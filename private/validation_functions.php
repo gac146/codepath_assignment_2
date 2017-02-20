@@ -22,6 +22,7 @@
   // has_valid_email_format('test@test.com')
   // Validates that email addresses contain only whitelisted characters: 
   // A-Z, a-z, 0-9, and @._-.
+  
   function has_valid_email_format($value) {
     // Improve function to check if the first part of the email contains
     // the permited characters. Checks if it contains a '@' character and
@@ -39,8 +40,32 @@
 
   // function to validate user and make suer that it only contains
   // characters: A-Z, a-z, 0-9, and _
-  function has_valid_user_format($value) {
+  function has_valid_username_format($value) {
     return preg_match('%^[a-zA-Z0-9_]+$%', $value);
+  }
+
+  //
+
+  // Custom validation
+  // Validates the state code is exactly two characters long and
+  // that contains only upper case A-Z
+  function has_valid_code($value) {
+    return preg_match('%^[A-Z]{2}$%', $value);
+  }
+
+  // Custmo validation
+  // checks that the name only conatins upper or lower case
+  // letters a-z, A-Z. At least two characters long
+  // Can be used for users, salespeople, and states/terriroties
+  function has_valid_name($value) {
+    return preg_match('%^[a-zA-Z]{2,}$%', $value);
+  }
+
+  // Custom validation
+  // Validation to check if the position of the territory is
+  // an integer. It cannot contain any letters or special chars
+  function has_valid_position($value){
+    return preg_match('%^\d+$%', $value);
   }
 
 ?>

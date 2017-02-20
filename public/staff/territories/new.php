@@ -43,7 +43,7 @@ if(is_post_request()) {
   <!-- TODO add form -->
   <?php echo display_errors($errors); ?>
 
-  <form action="new.php" method="post">
+  <form action="new.php?id=<?php echo $state_id; ?>" method="post">
     Territory name:<br />
     <input type="text" name="name" value="<?php echo $territory['name']; ?>" /><br />
     Position:<br />
