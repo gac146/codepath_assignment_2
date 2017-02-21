@@ -20,29 +20,29 @@ if(is_post_request()) {
   $result = update_territory($territory);
 
   if($result === true) {
-    redirect_to('show.php?id=' . $territory['id']);
+    redirect_to('show.php?id=' . u($territory['id']));
   } else {
     $errors = $result;
-  }
+  } 
 }
 ?>
 
-<?php $page_title = 'Staff: Edit Territory ' . $territory['name']; ?>
+<?php $page_title = 'Staff: Edit Territory ' . h($territory['name']); ?>
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <div id="main-content">
-  <a href="../states/show.php?id=<?php echo $state_id; ?>">Cancel</a><br />
+  <a href="../states/show.php?id=<?php echo u($state_id); ?>">Cancel</a><br />
 
-  <h1>Edit Territory: <?php echo $territory['name']; ?></h1>
+  <h1>Edit Territory: <?php echo h($territory['name']); ?></h1>
 
   <!-- TODO add form -->
    <?php echo display_errors($errors); ?>
 
-  <form action="edit.php?id=<?php echo $territory['id']; ?>" method="post">
+  <form action="edit.php?id=<?php echo u($territory['id']); ?>" method="post">
     Territory name:<br />
-    <input type="text" name="name" value="<?php echo $territory['name']; ?>" /><br />
+    <input type="text" name="name" value="<?php echo h($territory['name']); ?>" /><br />
     Position:<br />
-    <input type="text" name="position" value="<?php echo $territory['position']; ?>" /><br />
+    <input type="text" name="position" value="<?php echo h($territory['position']); ?>" /><br />
     <br />
     <input type="submit" name="submit" value="Update"  />
   </form>
