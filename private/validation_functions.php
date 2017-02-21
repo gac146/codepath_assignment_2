@@ -64,36 +64,4 @@
   function has_valid_position($value){
     return preg_match('%^\d+$%', $value);
   }
-
-  // Custom Validation
-  // function to check the uniqueness of a user name for a new user
-  /*function is_unique_new($field, $table, $value) {
-                 
-    global $db;
-
-    $sql = "SELECT " . $field;
-    $sql .= " FROM " . $table;
-    $sql .= " WHERE " .  $field ."='" . $value ."';";
-
-    $query = $db->query($sql);
-    return !$query->num_rows != 0;
-  }
-
-  // Custom Validation
-  // function to check the uniqueness of a user name for an existing user
-  function is_unique_edit($field, $table, $user) {
-                 
-    global $db;
-    $value = $user['username'];
-    $id = $user['id'];
-
-    $sql = "SELECT " . $field;
-    $sql .= " FROM " . $table;
-    $sql .= " WHERE " .  $field ."='" . $value ."' ";
-    $sql .= "AND WHERE id !='" . $id . "';";
-
-    $query = $db->query($sql);
-    if($query->id)
-    return !$query->num_rows != 0;
-  }*/
 ?>
