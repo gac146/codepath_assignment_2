@@ -55,7 +55,7 @@
   // letters a-z, A-Z. At least two characters long
   // Can be used for users, salespeople, and states/terriroties
   function has_valid_name($value) {
-    return preg_match('%^[a-zA-Z]{2,}$%', $value);
+    return preg_match('%^[a-zA-Z ]{2,}$%', $value);
   }
 
   // Custom validation

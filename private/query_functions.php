@@ -113,6 +113,7 @@
     $sql .= "name='" . mysqli_real_escape_string($db, $state['name']) . "', ";
     $sql .= "code='" . mysqli_real_escape_string($db, $state['code']) . "', ";
     $sql .= "country_id='" . mysqli_real_escape_string($db, $state['country_id']) . "' ";
+    $sql .= "WHERE id='" . mysqli_escape_string($db, $state['id']) . "' ";
     $sql .= "LIMIT 1;";
 
     // For update_state statments, $result is just true/false
@@ -229,6 +230,7 @@
     $sql .= "name='" . mysqli_real_escape_string($db, $territory['name']) . "', ";
     $sql .= "state_id='" . mysqli_real_escape_string($db, $territory['state_id']) . "', ";
     $sql .= "position='" . mysqli_real_escape_string($db, $territory['position']) . "' ";
+    $sql .= "WHERE id='" . mysqli_escape_string($db, $territory['id']) . "' ";
     $sql .= "LIMIT 1;";
 
     // For update_territory statments, $result is just true/false
@@ -502,11 +504,6 @@
     global $db;
 
     $errors = validate_user($user);
-
-    //checking for uniqueness of user name on new user
-    /*if(!is_unique_edit('username', 'users', $user)){
-      $errors[] = "Username already taken. Please enter a different user name.";
-    }*/
 
     if (!empty($errors)) {
       return $errors;
