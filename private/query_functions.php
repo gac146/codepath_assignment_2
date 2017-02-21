@@ -72,8 +72,13 @@
   function insert_state($state) {
     global $db;
     $state['country_id'] = 1;
-
     $errors = validate_state($state);
+
+    // checking for uniqueness of state's name
+    if(!is_state_unique($state['name'])){
+      $errors[] = "Name of state already exists.";
+    }
+
     if (!empty($errors)) {
       return $errors;
     }

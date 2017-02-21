@@ -64,4 +64,15 @@
   function has_valid_position($value){
     return preg_match('%^\d+$%', $value);
   }
+
+  // Custom validation
+  // It won't allow to create a new state that already exists
+  function is_state_unique($name) {
+
+    global $db;
+    $name = trim($name);
+    $sql = $db->query("SELECT name FROM states WHERE name='". mysqli_real_escape_string($db, $name) ."'");
+    
+    return !$sql->num_rows != 0;
+  }
 ?>
