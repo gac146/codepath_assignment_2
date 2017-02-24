@@ -69,9 +69,25 @@ The following advanced user stories are optional:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/6gbCv8b.gifv' title='assignment_2' width='' alt='Video Walkthrough' />
+<img src='http://imgur.com/a/ILT8E' title='assignment_2' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+## Additional Features
+
+Additional Features implemented in the program
+1. Feature that lets the user enter only letters and spaces for names(states, users, salespeople).
+2. Feature that would only let the user enter exactly two capital letters for the state code.
+3. Feature for that would save the phone number in the database as ###-###-#### no matter what format was used to enter the phone number of the allowed formats:
+  - ##########
+  - (###)-###-####
+  - (###)#######
+  - etc
+    They all wouldbe saved in the database as ###-###-####
+4. Feature for the email account, that it would only let the user enter emails with at least two of the allowed characters followed by "@ "at least 
+   two more characters followed by "." and then at least two more characters. 
+5. Feature that would check for the uniqueness of a state's name when creating a new state. If the state's name is already in the database, 
+   it wouldn't lewt the user create it.
 
 ## Notes
 
